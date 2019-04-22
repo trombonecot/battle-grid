@@ -1,0 +1,83 @@
+<template>
+    <svg :width=width :height=height :x=columns :y=rows>
+       <svg v-for="(row, indexY) in getRows()"
+            v-bind:key="row.y"
+            :width=width 
+            :height=tileSize 
+            :y=indexY*(tileSize-10)>
+         
+            <svg
+                v-for="(column, indexX) in row"
+                v-bind:key="indexX"
+                :height=tileSize
+                :width=tileSize
+                :x="getX(indexX, column)">
+
+                    <Tile :column=column></Tile>
+            </svg>
+
+
+       </svg>
+
+       <defs>
+           <pattern id="plains" patternUnits="userSpaceOnUse" width="100" height="100">
+               <image xlink:href="../../assets/plains.jpg" x="0" y="-20" width="100" height="100"/>
+           </pattern>
+           <pattern id="woods" patternUnits="userSpaceOnUse" width="100" height="100">
+               <image xlink:href="../../assets/woods.jpg" x="0" y="-20" width="100" height="100"/>
+           </pattern>
+           <pattern id="mountain" patternUnits="userSpaceOnUse" width="100" height="100">
+               <image xlink:href="../../assets/mountains.jpg" x="0" y="-20" width="100" height="100"/>
+           </pattern>
+           <pattern id="lake" patternUnits="userSpaceOnUse" width="100" height="100">
+               <image xlink:href="../../assets/lake.jpg" x="0" y="-20" width="100" height="100"/>
+           </pattern>
+       </defs>
+    </svg>
+</template>
+
+<script>
+import { createNamespacedHelpers } from 'vuex';
+
+const { mapState } = createNamespacedHelpers('board');
+import Tile from './tiles/Tile';
+
+export default {
+    name: 'TerrainGrid',
+    components: {
+        Tile
+    },
+    props: {
+        width: String,
+        height: String,
+        rows: String,
+        columns: String,
+        tileSize: String
+    },
+    computed: {
+      ...mapState({
+				game: state => state
+			}),
+    },
+    methods: {
+      getRows() {
+        const all = this.game.board;
+
+        let rows = [];
+
+        for ( let i = 0; i < this.columns; i++ ) {
+          rows.push(all.slice(i*this.rows,(i+1)*this.rows));
+        }
+
+        return rows;
+      },
+      getX(index, column) {
+        let x = index * (this.tileSize-4);
+        if (column.y%2 === 0 ) {
+          x += ((this.tileSize-4)/2);
+        }
+        return x;
+      }
+	}
+}
+</script>
