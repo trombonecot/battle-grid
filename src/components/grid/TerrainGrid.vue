@@ -13,9 +13,8 @@
                 :width=tileSize
                 :x="getX(indexX, column)">
 
-                    <Tile :column=column></Tile>
+                    <Tile :column=column :army="game"></Tile>
             </svg>
-
 
        </svg>
 

@@ -37,8 +37,18 @@ export default {
       const Hex = extendHex({ size: 32 });
       const Grid = defineGrid(Hex);
 
+      const army1 = {
+        units: [
+          {
+            type: 'soldier',
+            position: { x: 2, y: 3 }
+          }
+        ]
+      }
+
       const model = {
-        board: generateTiles(Grid.rectangle({ width: 10, height: 10 }))
+        board: generateTiles(Grid.rectangle({ width: 10, height: 10 })),
+        armyA : army1
       }
 
       next(vm => {

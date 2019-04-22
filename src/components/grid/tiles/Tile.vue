@@ -5,6 +5,7 @@
         <polygon :class="this.class"
                 :points="getPoints(column)" 
                 :fill="'url(#' + column.type.name + ')'">
+                
         </polygon>
     </g>
 </template>
