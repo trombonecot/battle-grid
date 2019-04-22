@@ -1,3 +1,5 @@
 export default {
-    board: []
+    board: [],
+    selected: null,
+    action: null
 }

@@ -42,8 +42,34 @@ export function generateTiles(board) {
 
 	board.forEach(element => {
         const type = finalTypes[getRandomInt(0, finalTypes.length-1)];
-		element.type = type;
+        element.type = type;
+
+
+
+        if (getRandomInt(0,10) === 3 ) {
+            element.unit = {
+                type: 'soldier',
+                name: 'Granadiers',
+                health: 10,
+                currentHealth: getRandomInt(1,10)
+            }
+        }
+        
+
 	});
 
 	return board;
+}
+
+
+import { extendHex, defineGrid } from 'honeycomb-grid';
+
+export function selectMovements(board, selected) {
+    const Hex = extendHex({ orientation: 'pointy' })
+    const Grid = defineGrid(Hex);
+
+    const grid = Grid.rectangle({ width: 10, height: 10 }),
+        hex = grid.get([selected.x, selected.y]);
+
+    return grid.neighborsOf(hex);
 }

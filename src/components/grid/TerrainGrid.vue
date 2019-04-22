@@ -13,7 +13,9 @@
                 :width=tileSize
                 :x="getX(indexX, column)">
 
-                    <Tile :column=column :army="game"></Tile>
+                    <Tile   :column=column 
+                            @unitSelected="unitSelected(column)"
+                            :isMovement=!!column.possibleMovement></Tile>
             </svg>
 
        </svg>
@@ -30,6 +32,9 @@
            </pattern>
            <pattern id="lake" patternUnits="userSpaceOnUse" width="100" height="100">
                <image xlink:href="../../assets/terrain/lake.jpg" x="0" y="-20" width="100" height="100"/>
+           </pattern>
+            <pattern id="soldier" patternUnits="userSpaceOnUse" width="80" height="80">
+               <image xlink:href="../../assets/army/american/soldier.png" x="-20" y="0" width="80" height="80"/>
            </pattern>
        </defs>
     </svg>
@@ -72,11 +77,14 @@ export default {
       },
       getX(index, column) {
         let x = index * (this.tileSize-4);
-        if (column.y%2 === 0 ) {
+        if (column.y%2 === 1 ) {
           x += ((this.tileSize-4)/2);
         }
         return x;
-      }
+      },
+        unitSelected(column) {
+          this.$emit("unitSelected", column);
+      },
 	}
 }
 </script>

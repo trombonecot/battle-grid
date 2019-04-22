@@ -7,7 +7,13 @@
                 height=600 
                 rows=10 
                 columns=10
-                tileSize=64></TerrainGrid>
+                tileSize=64
+                @unitSelected="unitSelected"
+                ></TerrainGrid>
+    
+    <ActionPanel v-if="isUnitSelected" 
+                  :tile=game.selected
+                  @carryAction="carryAction"></ActionPanel>
 
   </div>
 </template>
@@ -16,8 +22,9 @@
 import { defineGrid, extendHex } from 'honeycomb-grid';
 import { createNamespacedHelpers } from 'vuex';
 
-import { generateTiles } from './grid/tiles/index.js';
+import { generateTiles, selectMovements } from './grid/tiles/index.js';
 import TerrainGrid from './grid/TerrainGrid';
+import ActionPanel from './actionPanel/index.vue';
 
 const { mapState } = createNamespacedHelpers('board');
 const boardStore = createNamespacedHelpers('board');
@@ -26,12 +33,16 @@ const boardStore = createNamespacedHelpers('board');
 export default {
     name: 'BattleGrid',
     components: {
-      TerrainGrid
+      TerrainGrid,
+      ActionPanel
     },
     computed: {
       ...mapState({
 				game: state => state
-			}),
+      }),
+      isUnitSelected() {
+        return !!this.game.selected;
+      }
     },
     beforeRouteEnter(to, from, next) {
       const Hex = extendHex({ size: 32 });
@@ -45,7 +56,7 @@ export default {
           }
         ]
       }
-
+      
       const model = {
         board: generateTiles(Grid.rectangle({ width: 10, height: 10 })),
         armyA : army1
@@ -56,7 +67,21 @@ export default {
       });
     },
     methods: {
-      set: boardStore.mapMutations(['set']).set
+      set: boardStore.mapMutations(['set']).set,
+      setMovement: boardStore.mapMutations(['setMovement']).setMovement,
+      unitSelected(tile) {
+        this.set({selected: tile})
+      },
+      carryAction(action) {
+
+        if (action === 'move') {
+          selectMovements(this.game.board, this.game.selected).forEach(element => {
+            this.setMovement(element);
+          });
+        }
+
+        this.set({action: action})
+      }
 		}
 }
 </script>
