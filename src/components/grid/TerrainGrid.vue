@@ -21,16 +21,16 @@
 
        <defs>
            <pattern id="plains" patternUnits="userSpaceOnUse" width="100" height="100">
-               <image xlink:href="../../assets/plains.jpg" x="0" y="-20" width="100" height="100"/>
+               <image xlink:href="../../assets/terrain/plains.jpg" x="0" y="-20" width="100" height="100"/>
            </pattern>
            <pattern id="woods" patternUnits="userSpaceOnUse" width="100" height="100">
-               <image xlink:href="../../assets/woods.jpg" x="0" y="-20" width="100" height="100"/>
+               <image xlink:href="../../assets/terrain/woods.jpg" x="0" y="-20" width="100" height="100"/>
            </pattern>
            <pattern id="mountain" patternUnits="userSpaceOnUse" width="100" height="100">
-               <image xlink:href="../../assets/mountains.jpg" x="0" y="-20" width="100" height="100"/>
+               <image xlink:href="../../assets/terrain/mountains.jpg" x="0" y="-20" width="100" height="100"/>
            </pattern>
            <pattern id="lake" patternUnits="userSpaceOnUse" width="100" height="100">
-               <image xlink:href="../../assets/lake.jpg" x="0" y="-20" width="100" height="100"/>
+               <image xlink:href="../../assets/terrain/lake.jpg" x="0" y="-20" width="100" height="100"/>
            </pattern>
        </defs>
     </svg>
