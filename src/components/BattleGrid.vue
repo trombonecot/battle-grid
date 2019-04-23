@@ -69,17 +69,15 @@ export default {
     methods: {
       set: boardStore.mapMutations(['set']).set,
       setMovement: boardStore.mapMutations(['setMovement']).setMovement,
+      cleanMovements: boardStore.mapMutations(['cleanMovements']).cleanMovements,
       unitSelected(tile) {
-        this.set({selected: tile})
-      },
-      carryAction(action) {
-
-        if (action === 'move') {
-          selectMovements(this.game.board, this.game.selected).forEach(element => {
+        this.set({selected: tile});
+        this.cleanMovements();
+        selectMovements(this.game.board, this.game.selected).forEach(element => {
             this.setMovement(element);
           });
-        }
-
+      },
+      carryAction(action) {
         this.set({action: action})
       }
 		}
