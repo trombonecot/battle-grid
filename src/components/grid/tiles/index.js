@@ -51,6 +51,7 @@ export function generateTiles(board) {
                 type: 'soldier',
                 name: 'Granadiers',
                 health: 10,
+                force: 3,
                 currentHealth: getRandomInt(1,10)
             }
         }

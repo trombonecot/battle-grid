@@ -15,6 +15,7 @@
 
                     <Tile   :column=column 
                             @unitSelected="unitSelected(column)"
+                            @tileSelected="tileSelected(column)"
                             :isMovement=!!column.possibleMovement></Tile>
             </svg>
 
@@ -85,6 +86,9 @@ export default {
         unitSelected(column) {
           this.$emit("unitSelected", column);
       },
+      tileSelected(column) {
+         this.$emit("tileSelected", column);
+      }
 	}
 }
 </script>

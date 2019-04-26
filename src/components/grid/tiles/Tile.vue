@@ -1,6 +1,7 @@
 <template>
     <g>
         <polygon 
+                v-on:click="selectedTile"
                 :class=" this.isMovement ? 'pos-mov' : ''"
                 :points="getPoints(column)" 
                 :fill="'url(#' + column.type.name + ')'">
@@ -46,6 +47,9 @@ export default {
       },
       selectedUnit() {
           this.$emit("unitSelected", this.column);
+      },
+      selectedTile() {
+          this.$emit("tileSelected", this.column);
       },
       getHealthColor(unit) {
           const ratio = unit.currentHealth/unit.health;
