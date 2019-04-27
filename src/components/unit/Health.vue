@@ -9,13 +9,8 @@
 
 <script>
 
-import Health from './Health.vue';
-
 export default {
     name: 'Health',
-    components: {
-        Health
-    },
     props: {
         unit: Object
     },

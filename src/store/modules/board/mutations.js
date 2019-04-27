@@ -65,7 +65,8 @@ export default {
 
 		const {originUnit, destUnit} =  resolveAttack(originTile.unit, tile.unit);
 
-		debugger
+		
+		
 		if ( !destUnit && originUnit ) {
 			move(state, payload);
 		} else {
