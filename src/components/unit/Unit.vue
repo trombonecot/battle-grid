@@ -1,10 +1,12 @@
 <template>
     <svg>
+        <circle   cx="45" cy="20" r="3" :fill="this.getColorArmy()">
+            <title>{{unit.name}} ({{unit.currentHealth}}/{{unit.health}})</title>
+         </circle>
          <circle    @mouseover="mouseOver"
                     @mouseleave="mouseleave"
                     v-on:click="selectedUnit"
                     :class="this.class"
-                    v-if="!!unit" 
                     cx="28" cy="32" r="20"  :fill="'url(#' + unit.type + ')'">
             <title>{{unit.name}} ({{unit.currentHealth}}/{{unit.health}})</title>
          </circle>
@@ -44,6 +46,9 @@ export default {
       },
       selectedUnit() {
           this.$emit("unitSelected", this.unit);
+      },
+      getColorArmy() {
+          return this.unit.army =='a' ? 'blue' : 'red';
       },
       getHealthColor(unit) {
           const ratio = unit.currentHealth/unit.health;

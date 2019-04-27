@@ -24,6 +24,7 @@ import { defineGrid, extendHex } from 'honeycomb-grid';
 import { createNamespacedHelpers } from 'vuex';
 
 import { generateTiles, selectMovements } from './grid/tiles/index.js';
+import { generateArmy, deployTroops } from './unit/utils.js';
 import TerrainGrid from './grid/TerrainGrid';
 import ActionPanel from './actionPanel/index.vue';
 
@@ -49,19 +50,16 @@ export default {
       const Hex = extendHex({ size: 32 });
       const Grid = defineGrid(Hex);
 
-      const army1 = {
-        units: [
-          {
-            type: 'soldier',
-            position: { x: 2, y: 3 }
-          }
-        ]
-      }
+      const armyA = generateArmy('a', 5),
+        armyB = generateArmy('b', 5),
+        tiles = generateTiles(Grid.rectangle({ width: 10, height: 10 }));
+
+      deployTroops(tiles, armyA, true);
+      deployTroops(tiles, armyB, false);
       
       const model = {
-        board: generateTiles(Grid.rectangle({ width: 10, height: 10 })),
-        armyA : army1
-      }
+        board: tiles
+      };
 
       next(vm => {
         vm.set(model);
@@ -91,7 +89,7 @@ export default {
         if (tile.possibleMovement) {
           if ( !tile.unit ) {
             this.move({o: originTile,d: tile});
-          } else {
+          } else if (originTile.unit.army != tile.unit.army) {
             this.attack({o: originTile,d: tile});
           }
         }

@@ -43,29 +43,6 @@ export function generateTiles(board) {
 	board.forEach(element => {
         const type = finalTypes[getRandomInt(0, finalTypes.length-1)];
         element.type = type;
-
-
-
-        if (getRandomInt(0,10) === 3 ) {
-            element.unit = {
-                type: 'soldier',
-                name: 'Granadiers',
-                health: 10,
-                force: 3,
-                currentHealth: getRandomInt(1,10)
-            }
-        }
-        else if (getRandomInt(0,10) === 1 ) {
-            element.unit = {
-                type: 'sherman',
-                name: 'Sherman Tank',
-                health: 12,
-                force: 4,
-                currentHealth: getRandomInt(1,12)
-            }
-        }
-        
-
 	});
 
 	return board;
