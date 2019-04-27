@@ -34,6 +34,7 @@ export function generateArmy( id, number ) {
             unit = Object.assign({}, UNIT_TYPES[randomTypeKey]);
 
             unit.army = id;
+            unit.name = `${unit.name} ${i+1}`;
 
         army.push(unit);
     }
