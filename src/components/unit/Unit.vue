@@ -1,32 +1,28 @@
 <template>
-    <g>
-        <polygon 
-                v-on:click="selectedTile"
-                :class=" this.isMovement ? 'pos-mov' : ''"
-                :points="getPoints(column)" 
-                :fill="'url(#' + column.type.name + ')'">
-
-        </polygon>
-
-        <Unit   @unitSelected="selectedUnit"
-                v-if="column.unit"
-                :unit="column.unit"/>
-    </g>
+    <svg>
+         <circle    @mouseover="mouseOver"
+                    @mouseleave="mouseleave"
+                    v-on:click="selectedUnit"
+                    :class="this.class"
+                    v-if="!!unit" 
+                    cx="28" cy="32" r="20"  :fill="'url(#' + unit.type + ')'">
+            <title>{{unit.name}} ({{unit.currentHealth}}/{{unit.health}})</title>
+         </circle>
+         <Health :unit="unit" />
+    </svg>
 </template>
 
 <script>
 
-import Unit from '../../unit/Unit.vue';
+import Health from './Health.vue';
 
 export default {
-    name: 'TerrainGrid',
+    name: 'Unit',
     components: {
-        Unit
+        Health
     },
     props: {
-        column: Object,
-        unit: Object,
-        isMovement: Boolean
+        unit: Object
     },
     data() {
         return {
@@ -39,11 +35,15 @@ export default {
                 return corner.x + ',' + corner.y
             }).join(' ');
       },
-      selectedUnit() {
-          this.$emit("unitSelected", this.column);
+      mouseOver() {
+          this.class += 'mouse-over';
+          
       },
-      selectedTile() {
-          this.$emit("tileSelected", this.column);
+      mouseleave() {
+          this.class = '';
+      },
+      selectedUnit() {
+          this.$emit("unitSelected", this.unit);
       },
       getHealthColor(unit) {
           const ratio = unit.currentHealth/unit.health;
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style scoped>
-    .pos-mov {
+    .mouse-over {
         opacity: 0.7;
     }
 </style>
