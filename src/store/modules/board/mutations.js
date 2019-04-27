@@ -65,12 +65,10 @@ export default {
 
 		const {originUnit, destUnit} =  resolveAttack(originTile.unit, tile.unit);
 
+		debugger
 		if ( !destUnit && originUnit ) {
 			move(state, payload);
-		} else if ( !originUnit ) {
-			Vue.set(state.board[originTileKey], 'unit', null);
-			Vue.set(state.board[tileKey], 'unit', null);
-		}else {
+		} else {
 			Vue.set(state.board[originTileKey], 'unit', originUnit);
 			Vue.set(state.board[tileKey], 'unit', destUnit);
 		}
