@@ -1,5 +1,6 @@
 export default {
     board: [],
     selected: null,
-    action: null
+    action: null,
+    log: []
 }

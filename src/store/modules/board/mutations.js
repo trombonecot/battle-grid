@@ -19,22 +19,25 @@ function move(state, payload) {
 }
 
 function resolveAttack(a, b) {
-	let atacA = getRandomInt(1, 5),
-		atacB = getRandomInt(1, 5);
+	let attack = getRandomInt(1, a.atac),
+		defense = getRandomInt(1, b.defense);
 
-		// TODO: resolve terrains, etc...
-		if ( atacA+a.force-a.currentHealth > atacB+b.force-b.currentHealth) {
-			atacA += 1;
+		let msg = `Atac:`;
+
+		if ( attack > defense ) {
+			const force = getRandomInt(1, a.force);
+			msg += `${a.name}(${a.army}) attacks ${b.name}(${b.army}) and does ${force}`;
+			b.currentHealth -= force;
 		} else {
-			atacB += 1;
+			const force = getRandomInt(1, b.force);
+			msg += `${b.name}(${b.army}) defences from ${a.name}(${a.army}) and does ${force}`;
+			a.currentHealth -= force;
 		}
-	
-		a.currentHealth -= atacB;
-		b.currentHealth -= atacA;
-
+		
 		return {
 			originUnit: a.currentHealth > 0 ? a : null, 
-			destUnit: b.currentHealth > 0 ? b : null
+			destUnit: b.currentHealth > 0 ? b : null,
+			msg: msg
 		};
 
 }
@@ -42,6 +45,10 @@ function resolveAttack(a, b) {
 export default {
 	set(state, payload) {
 		Object.assign(state, payload);
+	},
+	addLogEntry(state, msg) {
+		state.log.push(msg);
+
 	},
 	setMovement(state, neighbor) {
 		const key =(neighbor.x)+(neighbor.y*Y);
@@ -63,10 +70,10 @@ export default {
 			originTileKey =(originTile.x)+(originTile.y*Y),
 			tileKey =(tile.x)+(tile.y*Y);
 
-		const {originUnit, destUnit} =  resolveAttack(originTile.unit, tile.unit);
+		const {originUnit, destUnit, msg} =  resolveAttack(originTile.unit, tile.unit);
 
-		
-		
+		state.log.push(msg);
+
 		if ( !destUnit && originUnit ) {
 			move(state, payload);
 		} else {

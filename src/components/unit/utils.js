@@ -10,14 +10,18 @@ export const UNIT_TYPES = {
         name: 'American Soldier',
         health: 10,
         force: 3,
+        atac: 2,
+        defense: 2,
         currentHealth: 10
     },
     sherman: {
         type: 'sherman',
         name: 'Sherman Tank',
-        health: 12,
+        health: 20,
         force: 5,
-        currentHealth: 12
+        atac: 3,
+        defense: 5,
+        currentHealth: 20
     }
 };
 
@@ -42,7 +46,7 @@ export function deployTroops( board, army, first ) {
         let deployed = false;
 
         while (!deployed) {
-            const tile =  board[getRandomInt(first ? 0 : board.length / 2, first ? board.lenth/2 : board.length-1)];
+            const tile =  board[getRandomInt(first ? 0 : board.length / 2, first ? board.length/2 : board.length-1)];
             if (tile!=null && !tile.unit) {
                 tile.unit = unit;
                 deployed = true;

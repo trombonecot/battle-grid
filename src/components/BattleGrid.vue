@@ -16,6 +16,8 @@
                   :tile=game.selected
                   @carryAction="carryAction"></ActionPanel>
 
+    <BattleLog></BattleLog>
+
   </div>
 </template>
 
@@ -27,6 +29,7 @@ import { generateTiles, selectMovements } from './grid/tiles/index.js';
 import { generateArmy, deployTroops } from './unit/utils.js';
 import TerrainGrid from './grid/TerrainGrid';
 import ActionPanel from './actionPanel/index.vue';
+import BattleLog from './BattleLog.vue';
 
 const { mapState } = createNamespacedHelpers('board');
 const boardStore = createNamespacedHelpers('board');
@@ -36,7 +39,8 @@ export default {
     name: 'BattleGrid',
     components: {
       TerrainGrid,
-      ActionPanel
+      ActionPanel,
+      BattleLog
     },
     computed: {
       ...mapState({
