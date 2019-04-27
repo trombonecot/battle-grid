@@ -2,7 +2,7 @@
     <g>
         <polygon 
                 v-on:click="selectedTile"
-                :class=" this.isMovement ? 'pos-mov' : ''"
+                :class=" this.isMovement ? 'pos-mov' : 'tile'"
                 :points="getPoints(column)" 
                 :fill="'url(#' + column.type.name + ')'">
 
@@ -63,7 +63,10 @@ export default {
 
 <style scoped>
     .pos-mov {
-        opacity: 0.7;
+        opacity: 0.5;
+    }
+    .tile {
+        opacity: 0.8;
     }
 </style>
 

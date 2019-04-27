@@ -55,6 +55,15 @@ export function generateTiles(board) {
                 currentHealth: getRandomInt(1,10)
             }
         }
+        else if (getRandomInt(0,10) === 1 ) {
+            element.unit = {
+                type: 'sherman',
+                name: 'Sherman Tank',
+                health: 12,
+                force: 4,
+                currentHealth: getRandomInt(1,12)
+            }
+        }
         
 
 	});

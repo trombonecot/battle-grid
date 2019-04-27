@@ -37,6 +37,9 @@
             <pattern id="soldier" patternUnits="userSpaceOnUse" width="80" height="80">
                <image xlink:href="../../assets/army/american/soldier.png" x="-20" y="0" width="80" height="80"/>
            </pattern>
+            <pattern id="sherman" patternUnits="userSpaceOnUse" width="80" height="80">
+               <image xlink:href="../../assets/army/american/sherman.png" x="0" y="0" width="60" height="60"/>
+           </pattern>
        </defs>
     </svg>
 </template>
