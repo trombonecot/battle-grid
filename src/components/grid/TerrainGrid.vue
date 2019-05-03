@@ -13,7 +13,9 @@
                 :width=tileSize
                 :x="getX(indexX, column)">
 
-                    <Tile   :column=column 
+                    <Tile   
+                            :turn=game.turn
+                            :column=column 
                             @unitSelected="unitSelected(column)"
                             @tileSelected="tileSelected(column)"
                             :isMovement=!!column.possibleMovement></Tile>

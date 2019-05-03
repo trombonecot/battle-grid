@@ -26,7 +26,8 @@ export default {
     props: {
         column: Object,
         unit: Object,
-        isMovement: Boolean
+        isMovement: Boolean,
+        turn: String
     },
     data() {
         return {
@@ -39,8 +40,13 @@ export default {
                 return corner.x + ',' + corner.y
             }).join(' ');
       },
+      isUnitTurn() {
+        return this.turn === this.column.unit.army
+      },
       selectedUnit() {
-          this.$emit("unitSelected", this.column);
+          if (this.isUnitTurn() || this.isMovement) {
+            this.$emit("unitSelected", this.column);
+          }
       },
       selectedTile() {
           this.$emit("tileSelected", this.column);

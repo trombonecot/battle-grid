@@ -2,6 +2,8 @@
   <div class="hello">
     <h1>Battle Grid</h1>
 
+    <div>TURN: {{game.turn}}</div>
+
     <TerrainGrid 
                 width=800 
                 height=600 
@@ -75,6 +77,7 @@ export default {
       cleanMovements: boardStore.mapMutations(['cleanMovements']).cleanMovements,
       move: boardStore.mapMutations(['move']).move,
       attack: boardStore.mapMutations(['attack']).attack,
+      changeTurn: boardStore.mapMutations(['changeTurn']).changeTurn,
       unitSelected(tile) {
         if ( !tile.possibleMovement ) {
           this.set({selected: tile});
@@ -93,8 +96,10 @@ export default {
         if (tile.possibleMovement) {
           if ( !tile.unit ) {
             this.move({o: originTile,d: tile});
+            this.changeTurn();
           } else if (originTile.unit.army != tile.unit.army) {
             this.attack({o: originTile,d: tile});
+            this.changeTurn();
           }
         }
         this.cleanMovements();

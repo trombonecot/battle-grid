@@ -39,12 +39,14 @@ function resolveAttack(a, b) {
 			destUnit: b.currentHealth > 0 ? b : null,
 			msg: msg
 		};
-
 }
 
 export default {
 	set(state, payload) {
 		Object.assign(state, payload);
+	},
+	changeTurn(state) {
+		state.turn = state.turn === 'a' ? 'b' : 'a';
 	},
 	addLogEntry(state, msg) {
 		state.log.push(msg);
