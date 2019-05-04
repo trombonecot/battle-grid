@@ -1,5 +1,7 @@
 import { Y } from '@/components/grid/constants';
 import { getRandomInt } from '@/components/utils';
+import { extendHex, defineGrid } from 'honeycomb-grid';
+import { getPossibleMovements } from '@/components/grid/utils';
 
 function getMostAwayUnit(board, armyId) {
 	let selectedTile = null;
@@ -16,24 +18,12 @@ function getMostAwayUnit(board, armyId) {
 
 }
 
-import { extendHex, defineGrid } from 'honeycomb-grid';
-
-export function selectMovements(tile) {
-    const Hex = extendHex({ orientation: 'pointy' })
-    const Grid = defineGrid(Hex);
-
-    const grid = Grid.rectangle({ width: 10, height: 10 }),
-        hex = grid.get([tile.x, tile.y]);
-
-    return grid.neighborsOf(hex);
-}
-
 export function autoResolve(board, armyId) {
 	const aggresiveness = getRandomInt(0, 10);
 
 
 		const mostAwayUnit = getMostAwayUnit(board, armyId),
-			selectedTiles = selectMovements(mostAwayUnit);
+			selectedTiles = getPossibleMovements(mostAwayUnit);
 
 		let movement = selectedTiles[getRandomInt(0, selectedTiles.length-1)];
 

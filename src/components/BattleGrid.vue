@@ -29,7 +29,8 @@
 import { defineGrid, extendHex } from 'honeycomb-grid';
 import { createNamespacedHelpers } from 'vuex';
 
-import { generateTiles, selectMovements } from './grid/tiles/index.js';
+import { generateTiles } from './grid/tiles/index.js';
+import { getPossibleMovements } from './grid/utils';
 import { generateArmy, deployTroops } from './unit/utils.js';
 import TerrainGrid from './grid/TerrainGrid';
 import ActionPanel from './actionPanel/index.vue';
@@ -85,7 +86,7 @@ export default {
         if ( !tile.possibleMovement ) {
           this.set({selected: tile});
           this.cleanMovements();
-          selectMovements(this.game.board, this.game.selected).forEach(element => {
+          getPossibleMovements(this.game.selected).forEach(element => {
               this.setMovement(element);
             });
         } else {

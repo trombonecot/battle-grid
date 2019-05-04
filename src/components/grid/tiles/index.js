@@ -43,16 +43,3 @@ export function generateTiles(board) {
 
 	return board;
 }
-
-
-import { extendHex, defineGrid } from 'honeycomb-grid';
-
-export function selectMovements(board, selected) {
-    const Hex = extendHex({ orientation: 'pointy' })
-    const Grid = defineGrid(Hex);
-
-    const grid = Grid.rectangle({ width: 10, height: 10 }),
-        hex = grid.get([selected.x, selected.y]);
-
-    return grid.neighborsOf(hex);
-}
