@@ -1,11 +1,5 @@
-import {Y} from '@/components/grid/constants';
-
-
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+import { Y } from '@/components/grid/constants';
+import { getRandomInt } from '@/components/utils';
 
 function getMostAwayUnit(board, armyId) {
 	let selectedTile = null;

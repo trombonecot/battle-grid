@@ -1,11 +1,6 @@
 import Vue from 'vue';
 import {Y} from '@/components/grid/constants';
-
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+import { getRandomInt } from '@/components/utils';
 
 function move(state, payload) {
 	const originTile = payload.o,
