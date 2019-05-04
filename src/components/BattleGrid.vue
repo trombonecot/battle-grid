@@ -4,6 +4,8 @@
 
     <div>TURN: {{game.turn}}</div>
 
+    <button @click="autoResolve">Auto move</button>
+
     <TerrainGrid 
                 width=800 
                 height=600 
@@ -32,6 +34,7 @@ import { generateArmy, deployTroops } from './unit/utils.js';
 import TerrainGrid from './grid/TerrainGrid';
 import ActionPanel from './actionPanel/index.vue';
 import BattleLog from './BattleLog.vue';
+import { autoResolve } from './ai/index.js';
 
 const { mapState } = createNamespacedHelpers('board');
 const boardStore = createNamespacedHelpers('board');
@@ -92,21 +95,26 @@ export default {
       tileSelected(tile) {
         const originTile = this.game.selected;
 
-        this.set({selected: null});
-        if (tile.possibleMovement) {
-          if ( !tile.unit ) {
-            this.move({o: originTile,d: tile});
-            this.changeTurn();
-          } else if (originTile.unit.army != tile.unit.army) {
-            this.attack({o: originTile,d: tile});
-            this.changeTurn();
-          }
-        }
-        this.cleanMovements();
-
+        this.moveOrAttack(originTile, tile);
       },
       carryAction(action) {
         this.set({action: action})
+      },
+      autoResolve() {
+        const {tileOrigin, tileEnd} = autoResolve(this.game.board, this.game.turn);
+        
+        this.moveOrAttack(tileOrigin, tileEnd);
+      },
+      moveOrAttack(tileA, tileB) {
+        this.set({selected: null});
+          if ( !tileB.unit ) {
+            this.move({o: tileA,d: tileB});
+            this.changeTurn();
+          } else if (tileA.unit.army != tileB.unit.army) {
+            this.attack({o: tileA,d: tileB});
+            this.changeTurn();
+          }
+        this.cleanMovements();
       }
 		}
 }
