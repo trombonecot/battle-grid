@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>Battle Log</h1>
+    <h1>Battle Log V1</h1>
 
     <ul id="example-1">
         <li v-for="item in game.log"
