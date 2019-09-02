@@ -1,5 +1,7 @@
 # ww2-battles
 
+Demo here: https://adoring-jackson-58d2b3.netlify.com/#/
+
 ## Project setup
 ```
 npm install
